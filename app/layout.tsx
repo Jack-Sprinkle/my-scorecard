@@ -15,8 +15,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-default">
-        <header>{Nav()}</header>
-        <main>{children}</main>
+        <header>
+          <Nav/>
+        </header>
+        <main className="bg-neutral-200">{children}</main>
       </body>
     </html>
   );
