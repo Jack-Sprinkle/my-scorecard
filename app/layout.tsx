@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Nav from "@/components/header";
 
 export const metadata: Metadata = {
   title: "My Scorecard",
@@ -13,8 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-display">
-        {children}
+      <body className="font-default">
+        <header>{Nav()}</header>
+        <main>{children}</main>
       </body>
     </html>
   );
