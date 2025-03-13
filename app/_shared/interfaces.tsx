@@ -4,7 +4,8 @@ interface Hole {
     strokes: number,
     score: number,
     fairway: boolean,
-    green: boolean
+    green: boolean,
+    putts: number
 }
 
 interface ScorecardProps {
@@ -15,5 +16,11 @@ interface ScorecardProps {
 interface CurrentHoleProps {
     currentHole: Hole,
     setCurrentHole: React.Dispatch<React.SetStateAction<Hole>>
+    updateCurrentHole: (updatedHole: Hole) => void
+}
+
+interface InputsProps {
+    currentHole: Hole;
+    updateCurrentHole: (updatedHole: Hole) => void;
 }
 
