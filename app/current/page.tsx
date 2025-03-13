@@ -1,10 +1,12 @@
+import ScoreCard from "@/components/scorecard";
+
 export default function Current() {
     return (
-      <section className="py-24 px-24">
         <div className="container-lg">
-          <h1 className="text-3xl font-bold">Current Round</h1>
+          <h1 className="text-3xl text-center">Current Round</h1>
+          <ScoreCard/>
         </div>
-      </section>
+        
     );
   }
   
