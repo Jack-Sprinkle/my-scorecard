@@ -1,10 +1,9 @@
 export default function Stats() {
     return (
-      <section className="py-24 px-24">
-        <div className="container-lg">
-          <h1 className="text-3xl font-bold">Stats</h1>
-        </div>
-      </section>
+      <div className="container-sm">
+        <h1 className="text-3xl">Stats</h1>
+        <p className="pl-4 mb-1">Coming soon!</p>
+      </div>
     );
   }
   
