@@ -1,5 +1,6 @@
-import Inputs from "./inputs";
+import Inputs from "./holeInputs";
 import { CheckIcon, XIcon } from "../_shared/icons";
+import { CurrentHoleProps } from "../_shared/interfaces";
 
 export default function CurrentHole({ currentHole, updateCurrentHole }: CurrentHoleProps) {
     return (

@@ -1,4 +1,5 @@
 import { CheckIcon, XIcon } from "../_shared/icons"
+import { ScorecardProps } from "../_shared/interfaces"
 
 export default function Scorecard({ scorecard }: ScorecardProps) {
 

@@ -3,6 +3,7 @@ import Scorecard from "@/app/_components/scorecard";
 import { useEffect, useState } from "react";
 import CurrentHole from "../_components/currentHole";
 import { LeftArrowIcon, RightArrowIcon } from "../_shared/icons";
+import { Hole } from "../_shared/interfaces";
 
 export default function Current() {
   

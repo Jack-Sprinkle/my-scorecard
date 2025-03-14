@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
+import { HoleInputsProps } from "../_shared/interfaces";
 
-export default function Inputs({ currentHole, updateCurrentHole }: InputsProps) {
+export default function holeInputs({ currentHole, updateCurrentHole }: HoleInputsProps) {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
