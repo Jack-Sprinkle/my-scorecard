@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Club } from "../_shared/interfaces";
 import BagInputs from "../_components/bagInputs";
+import { XIcon } from "../_shared/icons";
 
 export default function Bag() {
   const [bag, setBag] = useState<Club[]>(() => {
@@ -20,6 +21,12 @@ export default function Bag() {
     setShowAddClub(false);
   }; 
 
+  const deleteClub = (index: number) => {
+    const newBag = [...bag];
+    newBag.splice(index, 1);
+    setBag(newBag);
+  }
+
   return (
     <div className="container-sm flex flex-col gap-4">
       <h1 className="text-3xl">My bag</h1>
@@ -30,7 +37,7 @@ export default function Bag() {
             <th className="px-4">Type</th>
             <th className="px-4">Loft</th>
             <th className="px-4">Distance</th>
-            
+            <th className="px-4"></th>
           </tr>
         </thead>
         <tbody className="text-center">
@@ -40,6 +47,9 @@ export default function Bag() {
               <td>{club.type}</td>
               <td>{club.loft}</td>
               <td>{club.distance}</td>
+              <td className="text-center">
+                <button onClick={() => deleteClub(index)} className="text-red-500 flex justify-center"><XIcon/></button>
+              </td>
             </tr>
           ))}
         </tbody>
