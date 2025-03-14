@@ -1,9 +1,9 @@
 "use client"
 import Scorecard from "@/app/_components/scorecard";
+import { LeftArrowIcon, RightArrowIcon } from "../_shared/icons";
 import { useEffect, useState } from "react";
 import HoleInputs from "@/app/_components/holeInputs";
 import { Hole } from "../_shared/interfaces";
-//import { LeftArrowIcon, RightArrowIcon } from "../_shared/icons";
 
 export default function Current() {
   
@@ -23,45 +23,63 @@ export default function Current() {
   }, [scorecard]);
 
   const addHole = (hole: Hole) => {
-    setScorecard((prevScorecard) => [...prevScorecard, hole]);
-    setCurrentHole({
-      holeNumber: hole.holeNumber + 1,
-      par: 0,
-      strokes: 0,
-      score: 0,
-      fairway: false,
-      green: false,
-      putts: 0,
-    });
+    const duplicateHole = scorecard.find((hole) => hole.holeNumber === hole.holeNumber);
+    if (duplicateHole) {
+      return;
+    } else {
+      setScorecard((prevScorecard) => [...prevScorecard, hole]);
+      setCurrentHole({
+        holeNumber: hole.holeNumber + 1,
+        par: 0,
+        strokes: 0,
+        score: 0,
+        fairway: false,
+        green: false,
+        putts: 0,
+      });
+    }
   };
 
-  // const nextHole = () => {
-  //   setCurrentHole((prev) => {
-  //     const nextIndex = scorecard.findIndex(hole => hole.holeNumber === prev?.holeNumber) + 1;
-  //     return scorecard[nextIndex] || prev;
-  //   });
-  // };
+  const editHole = (hole: Hole) => {
+    const editedScorecard = scorecard.map((item) => {
+      if (item.holeNumber === hole.holeNumber) {
+        return hole;
+      }
+      return item;
+    })
+    setScorecard(editedScorecard);
+  }
 
-  // const previousHole = () => {
-  //   setCurrentHole((prev) => {
-  //     const prevIndex = scorecard.findIndex(hole => hole.holeNumber === prev?.holeNumber) - 1;
-  //     return scorecard[prevIndex] || prev;
-  //   });
-  // };
+  const nextHole = () => {
+    const nextHole = {...currentHole, holeNumber: currentHole.holeNumber + 1};
+    if (nextHole.holeNumber > scorecard.length + 1) {
+      return;
+    } else
+    setCurrentHole(nextHole)
+  }
 
+  const prevHole = () => {
+    const prevHoleNumber = currentHole.holeNumber - 1;
+    const prevHole = scorecard.find((hole) => hole.holeNumber === prevHoleNumber);
+    if (!prevHole) {
+      return;
+    } else {
+      setCurrentHole(prevHole)
+    }
+  }
   return (
     <div className="container-sm flex flex-col gap-5">
       <h1 className="text-3xl">Current Round</h1>
       <Scorecard scorecard={scorecard} setScorecard={setScorecard}/>
-      {/* <div className="container-sm flex justify-center gap-4">
-        <button onClick={previousHole}>
+      <div className="container-sm flex justify-center gap-4">
+        <button onClick={prevHole}>
           <LeftArrowIcon/>
         </button>
         <button onClick={nextHole}>
           <RightArrowIcon/>
         </button>
-      </div> */}
-      {currentHole && <HoleInputs currentHole={currentHole} setCurrentHole={setCurrentHole} addHole={addHole}/>}
+      </div>
+      {currentHole && <HoleInputs currentHole={currentHole} setCurrentHole={setCurrentHole} addHole={addHole} editHole={editHole}/>}
     </div>
   );
 }

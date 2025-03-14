@@ -2,7 +2,7 @@
 import { HoleInputsProps } from "../_shared/interfaces";
 import { ChangeEvent, FormEvent } from "react";
 
-export default function HoleInputs({ currentHole, setCurrentHole, addHole }: HoleInputsProps) {
+export default function HoleInputs({ currentHole, setCurrentHole, addHole, editHole }: HoleInputsProps) {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
@@ -72,7 +72,10 @@ export default function HoleInputs({ currentHole, setCurrentHole, addHole }: Hol
                         className="ml-2 border rounded p-1 w-20"
                     />
                 </label>
-                <button type="submit" className="rounded-lg bg-blue-500 text-white px-2 py-1 mt-4">Save Hole</button>
+                <div className="flex justify-between w-full">
+                    <button type="button" onClick={() => editHole(currentHole)} className="rounded-lg bg-blue-500 text-white px-2 py-1 mt-4">Save Edit</button>
+                    <button type="submit" className="rounded-lg bg-green-500 text-white px-2 py-1 mt-4">Add Hole</button>
+                </div>
             </form>
         </div>
     );

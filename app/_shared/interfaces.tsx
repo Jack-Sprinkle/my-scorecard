@@ -24,6 +24,7 @@ export interface HoleInputsProps {
     currentHole: Hole;
     setCurrentHole: React.Dispatch<React.SetStateAction<Hole>>;
     addHole: (hole: Hole) => void;
+    editHole: (hole: Hole) => void;
 }
 
 export interface ClubInputsProps {
