@@ -1,50 +1,18 @@
 "use client";
-import { useState, ChangeEvent, FormEvent } from "react";
-import { Hole, HoleInputsProps } from "../_shared/interfaces";
 
-export default function HoleInputs({ addHole }: HoleInputsProps) {
-    const [hole, setHole] = useState<Hole>({
-        hole: 1,
-        par: 0,
-        strokes: 0,
-        score: 0,
-        fairway: false,
-        green: false,
-        putts: 0,
-    });
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked } = e.target;
-        setHole((prevHole) => ({
-            ...prevHole,
-            [name]: type === "checkbox" ? checked : value,
-        }));
-    };
+export default function HoleInputs() {
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        addHole(hole);
-        setHole({
-            hole: hole.hole + 1,
-            par: 0,
-            strokes: 0,
-            score: 0,
-            fairway: false,
-            green: false,
-            putts: 0,
-        });
-    };
 
     return (
-        <div className="container-sm flex justify-center">
-            <form className="flex flex-col items-start" onSubmit={handleSubmit}>
+        <div className="container-sm flex flex-col gap-4">
+            <h2 className="text-2xl underline text-center">Hole: 1</h2>
+            <form className="flex flex-col items-start">
                 <label className="mb-2">
                     Par:
                     <input 
                         type="number" 
                         name="par"
-                        value={hole.par}
-                        onChange={handleChange}
                         className="ml-2 border rounded p-1 w-20"
                     />
                 </label>
@@ -52,9 +20,7 @@ export default function HoleInputs({ addHole }: HoleInputsProps) {
                     Strokes:
                     <input 
                         type="number"
-                        name="strokes"
-                        value={hole.strokes}
-                        onChange={handleChange} 
+                        name="strokes" 
                         className="ml-2 border rounded p-1 w-20"
                     />
                 </label>
@@ -63,8 +29,6 @@ export default function HoleInputs({ addHole }: HoleInputsProps) {
                     <input 
                         type="checkbox"
                         name="fairway"
-                        checked={hole.fairway}
-                        onChange={handleChange}
                         className="ml-2"
                     />
                 </label>
@@ -73,8 +37,6 @@ export default function HoleInputs({ addHole }: HoleInputsProps) {
                     <input 
                         type="checkbox" 
                         name="green"
-                        checked={hole.green}
-                        onChange={handleChange}
                         className="ml-2"
                     />
                 </label>
@@ -83,8 +45,6 @@ export default function HoleInputs({ addHole }: HoleInputsProps) {
                     <input 
                         type="number"
                         name="putts"
-                        value={hole.putts}
-                        onChange={handleChange}
                         className="ml-2 border rounded p-1 w-20"
                     />
                 </label>

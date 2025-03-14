@@ -1,5 +1,5 @@
 export interface Hole {
-    hole: number,
+    holeNumber: number,
     par: number,
     strokes: number,
     score: number,
@@ -20,13 +20,9 @@ export interface ScorecardProps {
     setScorecard: React.Dispatch<React.SetStateAction<Hole[]>>
 }
 
-export interface CurrentHoleProps {
-    currentHole: Hole,
-    setCurrentHole: React.Dispatch<React.SetStateAction<Hole>>
-    updateCurrentHole: (updatedHole: Hole) => void
-}
-
 export interface HoleInputsProps {
+    scorecard: Hole[];
+    currentHole: Hole | null;
     addHole: (hole: Hole) => void;
 }
 

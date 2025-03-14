@@ -2,8 +2,8 @@
 import Scorecard from "@/app/_components/scorecard";
 import { useEffect, useState } from "react";
 import HoleInputs from "@/app/_components/holeInputs";
-//import { LeftArrowIcon, RightArrowIcon } from "../_shared/icons";
 import { Hole } from "../_shared/interfaces";
+//import { LeftArrowIcon, RightArrowIcon } from "../_shared/icons";
 
 export default function Current() {
   
@@ -16,19 +16,33 @@ export default function Current() {
     localStorage.setItem("scorecard", JSON.stringify(scorecard));
   }, [scorecard]);
 
-  const [showAddHole, setShowAddHole] = useState(false);
+  // const nextHole = () => {
+  //   setCurrentHole((prev) => {
+  //     const nextIndex = scorecard.findIndex(hole => hole.holeNumber === prev?.holeNumber) + 1;
+  //     return scorecard[nextIndex] || prev;
+  //   });
+  // };
 
-  const addHole = (hole: Hole) => {
-    setScorecard((prevScorecard) => [...prevScorecard, hole]);
-    setShowAddHole(false);
-  }
+  // const previousHole = () => {
+  //   setCurrentHole((prev) => {
+  //     const prevIndex = scorecard.findIndex(hole => hole.holeNumber === prev?.holeNumber) - 1;
+  //     return scorecard[prevIndex] || prev;
+  //   });
+  // };
 
   return (
     <div className="container-sm flex flex-col gap-5">
       <h1 className="text-3xl">Current Round</h1>
       <Scorecard scorecard={scorecard} setScorecard={setScorecard}/>
-      <button onClick={() => setShowAddHole(!showAddHole)} className="btn btn-primary">Add Hole</button>
-      {showAddHole && <HoleInputs addHole={addHole} />}
+      {/* <div className="container-sm flex justify-center gap-4">
+        <button onClick={previousHole}>
+          <LeftArrowIcon/>
+        </button>
+        <button onClick={nextHole}>
+          <RightArrowIcon/>
+        </button>
+      </div> */}
+      <HoleInputs/>
     </div>
   );
 }
