@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/app/_components/header";
+import Footer from "./_components/footer";
 
 export const metadata: Metadata = {
   title: "My Scorecard",
@@ -19,6 +20,7 @@ export default function RootLayout({
           <Nav/>
         </header>
         <main className="bg-neutral-200">{children}</main>
+        <Footer/>
       </body>
     </html>
   );

@@ -2,7 +2,8 @@ export default function Home() {
   return (
     <div className="container-sm flex flex-col gap-4">
       <h1 className="text-3xl">Home</h1>
-      <p className="pl-4 mb-1">I plan on making this a PWA for offline and ease of use. Current Round is the only working tab at this point. But in the future I hope to have a Previous Rounds tab, that will allow you to see the last 5 rounds. Please see below steps to install PWA.</p>
+      <p className="pl-4 mb-1">This is a Progressive Web Application, download for offline use to make your life a bit easier. I put some steps below.</p>
+      <p className="pl-4 mb-1">You can currently update your current round, and add clubs to your bag to track distances that you always forget like me.</p>
       <h2 className="text-2xl">How to install PWA</h2>
         <div className="pl-4">
           <p className="underline font-semibold">On Chrome:</p>
