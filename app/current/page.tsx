@@ -1,6 +1,6 @@
 "use client"
 import Scorecard from "@/app/_components/scorecard";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CurrentHole from "../_components/currentHole";
 import { LeftArrowIcon, RightArrowIcon } from "../_shared/icons";
 
@@ -31,8 +31,6 @@ export default function Current() {
   });
 
   const [currentHole, setCurrentHole] = useState(scorecard[0]);
-  const [courseName, setCourseName] = useState<string | null>(null);
-  const [isEditingCourseName, setIsEditingCourseName] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("scorecard", JSON.stringify(scorecard));
@@ -62,38 +60,9 @@ export default function Current() {
     });
   };
 
-  const handleCourseNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCourseName(e.target.value);
-  };
-
-  const toggleCourseNameEdit = () => {
-    setIsEditingCourseName(!isEditingCourseName);
-  };
-
-  const courseNameChange = () => {
-    setIsEditingCourseName(false);
-  };
-
   return (
     <div className="container-sm flex flex-col gap-5">
       <h1 className="text-3xl">Current Round</h1>
-      <p>Course Name: {courseName}</p>
-      {isEditingCourseName ? (
-        <div className="flex gap-4 items-center">
-          <input
-            type="text"
-            placeholder="Enter course name"
-            value={courseName || ""}
-            onChange={handleCourseNameChange}
-            className="border rounded p-1"
-          />
-          <button className="rounded-lg bg-blue-500 text-white w-25" onClick={courseNameChange}>Save Name</button>
-        </div>
-      ) : (
-        <button className="rounded-lg bg-blue-500 text-white w-30" onClick={toggleCourseNameEdit}>
-          Set Name
-        </button>
-      )}
       <Scorecard scorecard={scorecard} setScorecard={setScorecard}/>
       <div className="container-sm flex gap-2 justify-center">
         <button onClick={previousHole} className="btn btn-primary mr-2"><LeftArrowIcon/></button>
