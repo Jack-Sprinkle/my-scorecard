@@ -22,14 +22,14 @@ export default function Current() {
     localStorage.setItem("scorecard", JSON.stringify(scorecard));
   }, [scorecard]);
 
-  const addHole = (hole: Hole) => {
-    const duplicateHole = scorecard.find((hole) => hole.holeNumber === hole.holeNumber);
+  const addHole = (newHole: Hole) => {
+    const duplicateHole = scorecard.find((hole) => hole.holeNumber === newHole.holeNumber);
     if (duplicateHole) {
       return;
     } else {
-      setScorecard((prevScorecard) => [...prevScorecard, hole]);
+      setScorecard((prevScorecard) => [...prevScorecard, newHole]);
       setCurrentHole({
-        holeNumber: hole.holeNumber + 1,
+        holeNumber: newHole.holeNumber + 1,
         par: 0,
         strokes: 0,
         score: 0,
@@ -40,12 +40,13 @@ export default function Current() {
     }
   };
 
-  const editHole = (hole: Hole) => {
-    const editedScorecard = scorecard.map((item) => {
-      if (item.holeNumber === hole.holeNumber) {
-        return hole;
+  const editHole = (editedHole: Hole) => {
+    const editedScorecard = scorecard.map((hole) => {
+      if (hole.holeNumber === editedHole.holeNumber) {
+        editedHole.score = editedHole.strokes - editedHole.par;
+        return editedHole;
       }
-      return item;
+      return hole;
     })
     setScorecard(editedScorecard);
   }
@@ -54,8 +55,10 @@ export default function Current() {
     const nextHole = {...currentHole, holeNumber: currentHole.holeNumber + 1};
     if (nextHole.holeNumber > scorecard.length + 1) {
       return;
-    } else
-    setCurrentHole(nextHole)
+    } else {
+      setCurrentHole(nextHole)
+    }
+    
   }
 
   const prevHole = () => {
