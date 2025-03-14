@@ -27,8 +27,7 @@ export interface CurrentHoleProps {
 }
 
 export interface HoleInputsProps {
-    currentHole: Hole;
-    updateCurrentHole: (updatedHole: Hole) => void;
+    addHole: (hole: Hole) => void;
 }
 
 export interface ClubInputsProps {
