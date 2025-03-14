@@ -19,7 +19,7 @@ export default function RootLayout({
         <header>
           <Nav/>
         </header>
-        <main className="bg-gray-300">{children}</main>
+        <main className="bg-gray-300 h-screen">{children}</main>
         <Footer/>
       </body>
     </html>

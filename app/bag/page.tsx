@@ -21,15 +21,15 @@ export default function Bag() {
   }; 
 
   return (
-    <div className="container-sm">
+    <div className="container-sm flex flex-col gap-4">
       <h1 className="text-3xl">My bag</h1>
       <table className="table-auto mx-auto">
         <thead>
           <tr>
-            <th className="px-2">Club</th>
-            <th className="px-2">Type</th>
-            <th className="px-2">Loft</th>
-            <th className="px-2">Distance</th>
+            <th className="px-4">Club</th>
+            <th className="px-4">Type</th>
+            <th className="px-4">Loft</th>
+            <th className="px-4">Distance</th>
             
           </tr>
         </thead>
@@ -44,7 +44,7 @@ export default function Bag() {
           ))}
         </tbody>
       </table>
-      <button onClick={() => setShowAddClub(!showAddClub)}>Add Club</button>
+      <button onClick={() => setShowAddClub(!showAddClub)} className="rounded-lg bg-blue-500 text-white px-2 py-1 mt-4 w-30">Add Club</button>
       {showAddClub && <BagInputs saveClub={saveClub} />}
     </div>
   );

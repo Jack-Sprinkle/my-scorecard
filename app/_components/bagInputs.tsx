@@ -5,7 +5,7 @@ import {useState, ChangeEvent, FormEvent} from "react";
 export default function BagInputs({saveClub} : ClubInputsProps) {
   const [club, setClub] = useState<Club>({
     name: "",
-    type: "driver",
+    type: "",
     loft: 0,
     distance: 0,
   });
@@ -13,8 +13,7 @@ export default function BagInputs({saveClub} : ClubInputsProps) {
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setClub(prevClub => ({
-      ...prevClub,
-    [name]: name === "loft" || name === "distance" ? parseFloat(value) : value,
+      ...prevClub, [name]: name === "loft" || name === "distance" ? parseFloat(value) : value,
     }));
   };
 
@@ -23,7 +22,7 @@ export default function BagInputs({saveClub} : ClubInputsProps) {
     saveClub(club);
     setClub({
       name: "",
-      type: "driver",
+      type: "",
       loft: 0,
       distance: 0,
     });
@@ -45,6 +44,7 @@ export default function BagInputs({saveClub} : ClubInputsProps) {
         <label className="mb-2">
           Type:
           <select name="type" value={club.type} onChange={handleChange} className="ml-2">
+            <option value="">Please Select</option>
             <option value="Driver">Driver</option>
             <option value="Wood">Wood</option>
             <option value="Iron">Iron</option>
@@ -73,7 +73,7 @@ export default function BagInputs({saveClub} : ClubInputsProps) {
             className="ml-2 border rounded p-1 w-20"
           />
         </label>
-        <button type="submit">Save Club</button>
+        <button type="submit" className="rounded-lg bg-blue-500 text-white px-2 py-1 mt-4">Save Club</button>
       </form>
     </div>
   );

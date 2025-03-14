@@ -12,9 +12,28 @@ export default function Current() {
     return savedScorecard ? JSON.parse(savedScorecard) : []
   });
 
+  const [currentHole, setCurrentHole] = useState<Hole>(() => {
+    const savedScorecard = localStorage.getItem("scorecard");
+    const parsedScorecard = savedScorecard ? JSON.parse(savedScorecard) : [];
+    return parsedScorecard.length > 0 ? parsedScorecard[parsedScorecard.length - 1] : {holeNumber: 1, par: 0, strokes: 0, score: 0, fairway: false, green: false, putts: 0};
+  });
+
   useEffect(() => {
     localStorage.setItem("scorecard", JSON.stringify(scorecard));
   }, [scorecard]);
+
+  const addHole = (hole: Hole) => {
+    setScorecard((prevScorecard) => [...prevScorecard, hole]);
+    setCurrentHole({
+      holeNumber: hole.holeNumber + 1,
+      par: 0,
+      strokes: 0,
+      score: 0,
+      fairway: false,
+      green: false,
+      putts: 0,
+    });
+  };
 
   // const nextHole = () => {
   //   setCurrentHole((prev) => {
@@ -42,7 +61,7 @@ export default function Current() {
           <RightArrowIcon/>
         </button>
       </div> */}
-      <HoleInputs/>
+      {currentHole && <HoleInputs currentHole={currentHole} setCurrentHole={setCurrentHole} addHole={addHole}/>}
     </div>
   );
 }

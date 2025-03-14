@@ -1,18 +1,34 @@
 "use client";
+import { HoleInputsProps } from "../_shared/interfaces";
+import { ChangeEvent, FormEvent } from "react";
 
+export default function HoleInputs({ currentHole, setCurrentHole, addHole }: HoleInputsProps) {
 
-export default function HoleInputs() {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value, type, checked } = e.target;
+        setCurrentHole(prevHole => ({
+            ...prevHole, [name] : type === "checkbox" ? checked : value,
+        }));
+    };
 
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const score = currentHole.strokes - currentHole.par;
+        currentHole.score = score;
+        addHole(currentHole);
+    };
 
     return (
         <div className="container-sm flex flex-col gap-4">
-            <h2 className="text-2xl underline text-center">Hole: 1</h2>
-            <form className="flex flex-col items-start">
+            <h2 className="text-2xl underline text-center">Hole: {currentHole.holeNumber}</h2>
+            <form className="flex flex-col items-start" onSubmit={handleSubmit}>
                 <label className="mb-2">
                     Par:
                     <input 
                         type="number" 
                         name="par"
+                        value={currentHole.par}
+                        onChange={handleChange}
                         className="ml-2 border rounded p-1 w-20"
                     />
                 </label>
@@ -20,7 +36,9 @@ export default function HoleInputs() {
                     Strokes:
                     <input 
                         type="number"
-                        name="strokes" 
+                        name="strokes"
+                        value={currentHole.strokes}
+                        onChange={handleChange}
                         className="ml-2 border rounded p-1 w-20"
                     />
                 </label>
@@ -29,6 +47,8 @@ export default function HoleInputs() {
                     <input 
                         type="checkbox"
                         name="fairway"
+                        checked={currentHole.fairway}
+                        onChange={handleChange}
                         className="ml-2"
                     />
                 </label>
@@ -37,6 +57,8 @@ export default function HoleInputs() {
                     <input 
                         type="checkbox" 
                         name="green"
+                        checked={currentHole.green}
+                        onChange={handleChange}
                         className="ml-2"
                     />
                 </label>
@@ -45,10 +67,12 @@ export default function HoleInputs() {
                     <input 
                         type="number"
                         name="putts"
+                        value={currentHole.putts}
+                        onChange={handleChange}
                         className="ml-2 border rounded p-1 w-20"
                     />
                 </label>
-                <button type="submit">Save Hole</button>
+                <button type="submit" className="rounded-lg bg-blue-500 text-white px-2 py-1 mt-4">Save Hole</button>
             </form>
         </div>
     );

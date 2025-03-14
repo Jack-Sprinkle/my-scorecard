@@ -5,7 +5,7 @@ export interface Hole {
     score: number,
     fairway: boolean,
     green: boolean,
-    putts: number
+    putts: number,
 }
 
 export interface Club {
@@ -21,8 +21,8 @@ export interface ScorecardProps {
 }
 
 export interface HoleInputsProps {
-    scorecard: Hole[];
-    currentHole: Hole | null;
+    currentHole: Hole;
+    setCurrentHole: React.Dispatch<React.SetStateAction<Hole>>;
     addHole: (hole: Hole) => void;
 }
 
