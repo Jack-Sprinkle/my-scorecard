@@ -19,7 +19,7 @@ export default function Current() {
   const [showAddHole, setShowAddHole] = useState(false);
 
   const addHole = (hole: Hole) => {
-    scorecard.push(hole);
+    setScorecard((prevScorecard) => [...prevScorecard, hole]);
     setShowAddHole(false);
   }
 

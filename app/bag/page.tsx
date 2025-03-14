@@ -4,7 +4,7 @@ import { Club } from "../_shared/interfaces";
 import BagInputs from "../_components/bagInputs";
 
 export default function Bag() {
-  const [bag] = useState<Club[]>(() => {
+  const [bag, setBag] = useState<Club[]>(() => {
     const savedBag = localStorage.getItem("bag");
     return savedBag ? JSON.parse(savedBag) : [];
   });
@@ -16,7 +16,7 @@ export default function Bag() {
   const [showAddClub, setShowAddClub] = useState(false);
   
   const saveClub = (club: Club) => {
-    bag.push(club);
+    setBag((prevBag) => [...prevBag, club]);
     setShowAddClub(false);
   }; 
 
