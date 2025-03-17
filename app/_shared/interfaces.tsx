@@ -1,4 +1,13 @@
+export interface Scorecard {
+    id: number;
+}
+
+export interface Bag {
+    id: number;
+}
+
 export interface Hole {
+    id?: number,
     holeNumber: number,
     par: number,
     strokes: number,
@@ -9,6 +18,7 @@ export interface Hole {
 }
 
 export interface Club {
+    id?: number,
     name: string,
     type: string,
     loft: number,
