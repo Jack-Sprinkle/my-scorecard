@@ -71,7 +71,7 @@ export default function Current() {
     }
   }
   return (
-    <div className="container-sm flex flex-col gap-5">
+    <div className="container-sm flex flex-col gap-5 md: items-center">
       <h1 className="text-3xl">Current Round</h1>
       <Scorecard scorecard={scorecard} setScorecard={setScorecard}/>
       <div className="container-sm flex justify-center gap-4">

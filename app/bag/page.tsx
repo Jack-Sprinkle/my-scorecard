@@ -28,7 +28,7 @@ export default function Bag() {
   }
 
   return (
-    <div className="container-sm flex flex-col gap-4">
+    <div className="container-sm flex flex-col gap-4 md: items-center">
       <h1 className="text-3xl">My bag</h1>
       <table className="table-auto mx-auto">
         <thead>
