@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/app/_components/header";
-import Footer from "./_components/footer";
+import Header from "./_components/Header";
+import Footer from "./_components/Footer";
 
 export const metadata: Metadata = {
   title: "My Scorecard",
@@ -16,9 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-default flex flex-col min-h-screen bg-gray-200">
-        <Header/>
+        <Header />
         <main className="flex-grow">{children}</main>
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

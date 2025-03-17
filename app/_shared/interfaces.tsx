@@ -1,43 +1,41 @@
 export interface Scorecard {
-    id: number;
+  id: number;
 }
 
 export interface Bag {
-    id: number;
+  id: number;
 }
 
 export interface Hole {
-    id?: number,
-    holeNumber: number,
-    par: number,
-    strokes: number,
-    score: number,
-    fairway: boolean,
-    green: boolean,
-    putts: number,
+  id?: number;
+  holeNumber: number;
+  par: number;
+  strokes: number;
+  score: number;
+  fairway: boolean;
+  green: boolean;
+  putts: number;
 }
 
 export interface Club {
-    id?: number,
-    name: string,
-    type: string,
-    loft: number,
-    distance: number,
+  id?: number;
+  name: string;
+  type: string;
+  loft: number;
+  distance: number;
 }
 
 export interface ScorecardProps {
-    scorecard: Hole[]
-    setScorecard: React.Dispatch<React.SetStateAction<Hole[]>>
+  scorecard: Hole[];
+  setScorecard: React.Dispatch<React.SetStateAction<Hole[]>>;
 }
 
 export interface HoleInputsProps {
-    currentHole: Hole;
-    setCurrentHole: React.Dispatch<React.SetStateAction<Hole>>;
-    addHole: (hole: Hole) => void;
-    editHole: (hole: Hole) => void;
+  currentHole: Hole;
+  setCurrentHole: React.Dispatch<React.SetStateAction<Hole>>;
+  editHole: (hole: Hole) => void;
 }
 
 export interface ClubInputsProps {
-    saveClub: (club: Club) => void;
+  saveClub: (club: Club) => void;
 }
-

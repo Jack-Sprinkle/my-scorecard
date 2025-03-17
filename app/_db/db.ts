@@ -15,4 +15,4 @@ db.version(1).stores({
     club: '++id',
 });
 
-export  { db };
+export { db };
