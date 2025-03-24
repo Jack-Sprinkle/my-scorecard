@@ -1,38 +1,59 @@
 "use client";
-import { HoleInputsProps } from "../_shared/interfaces";
-import { ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { AddHoleProps, Hole } from "../_shared/interfaces";
+import { db } from "../_db/db";
+import { useLiveQuery } from "dexie-react-hooks";
 
-export default function AddHole({
-  currentHole,
-  setCurrentHole,
-  editHole,
-}: HoleInputsProps) {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setCurrentHole((prevHole) => ({
-      ...prevHole,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+export default function AddHole({ roundNumber }: AddHoleProps) {
+  const holes: Hole[] | undefined = useLiveQuery(() =>
+    db.holes.where("roundNumber").equals(roundNumber).toArray()
+  );
+
+  const [error, setError] = useState("");
+  const [hole, setHole] = useState<Hole | null>(null);
+
+  useEffect(() => {
+    if (holes && holes.length > 0) {
+      const sortedHoles = holes.sort((a, b) => b.holeNumber - a.holeNumber);
+      setHole(sortedHoles[0]);
+    }
+  }, [holes]);
+
+  const addHole = async (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    try {
+      if (hole) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const id = await db.holes.add(hole);
+
+      } else {
+        setError(`Failed to add hole.`)
+      }
+    } catch (err) {
+      setError(`Failed to add hole: ${err}`);
+    }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const score = currentHole.strokes - currentHole.par;
-    currentHole.score = score;
-  };
+  const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    evt.preventDefault()
+    const {name, value} = evt.target
+    console.log(name + ": " + value)
+  }
+
 
   return (
     <div className="container-sm flex flex-col gap-4">
       <h2 className="text-2xl underline text-center">
-        Hole: {currentHole.holeNumber}
+        Hole: {hole?.holeNumber}
       </h2>
-      <form className="flex flex-col items-start" onSubmit={handleSubmit}>
+      {error ? <p>{error}</p> : null}
+      <form className="flex flex-col items-start" onSubmit={addHole}>
         <label className="mb-2">
           Par:
           <input
             type="number"
             name="par"
-            value={currentHole.par}
+            value={hole?.par || 0}
             onChange={handleChange}
             className="ml-2 border rounded p-1 w-20"
           />
@@ -42,7 +63,7 @@ export default function AddHole({
           <input
             type="number"
             name="strokes"
-            value={currentHole.strokes}
+            value={hole?.strokes || 0}
             onChange={handleChange}
             className="ml-2 border rounded p-1 w-20"
           />
@@ -50,9 +71,9 @@ export default function AddHole({
         <label className="mb-2">
           Hit fairway?
           <input
-            type="checkbox"
+            type="number"
             name="fairway"
-            checked={currentHole.fairway}
+            value={hole?.fairway || 0}
             onChange={handleChange}
             className="ml-2"
           />
@@ -60,9 +81,9 @@ export default function AddHole({
         <label className="mb-2">
           Green in Regulation?
           <input
-            type="checkbox"
+            type="number"
             name="green"
-            checked={currentHole.green}
+            value={hole?.green || 0}
             onChange={handleChange}
             className="ml-2"
           />
@@ -72,19 +93,12 @@ export default function AddHole({
           <input
             type="number"
             name="putts"
-            value={currentHole.putts}
+            value={hole?.putts || 0}
             onChange={handleChange}
             className="ml-2 border rounded p-1 w-20"
           />
         </label>
         <div className="flex justify-between w-full">
-          <button
-            type="button"
-            onClick={() => editHole(currentHole)}
-            className="rounded-lg bg-blue-500 text-white px-2 py-1 mt-4"
-          >
-            Save Edit
-          </button>
           <button
             type="submit"
             className="rounded-lg bg-green-500 text-white px-2 py-1 mt-4"

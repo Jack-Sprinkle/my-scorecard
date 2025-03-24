@@ -7,13 +7,13 @@
   --breakpoint-lg: 976px;
 
   --font-default: "Roboto", "sans-serif";
-  
+
   --container-*: initial;
-  --container-sm: .5rem;
+  --container-sm: 0.5rem;
   --container-md: 1.5rem;
   --container-lg: 2rem;
 }
 
 @utility container-* {
-  padding: --value(--container-*);
+  padding: --value(--container- *);
 }

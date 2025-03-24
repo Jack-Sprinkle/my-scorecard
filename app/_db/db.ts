@@ -1,18 +1,14 @@
 import Dexie, { type EntityTable } from "dexie";
-import { Scorecard, Bag, Hole, Club } from "../_shared/interfaces";
+import { Round, Hole } from "../_shared/interfaces";
 
 const db = new Dexie("myScorecardDB") as Dexie & {
-    scorecard: EntityTable<Scorecard, 'id'>;
-    bag: EntityTable<Bag, 'id'>;
-    holes: EntityTable<Hole, 'id'>;
-    club: EntityTable<Club, 'id'>;
+  rounds: EntityTable<Round, "id">;
+  holes: EntityTable<Hole, "id">;
 };
 
 db.version(1).stores({
-    scorecard: '++id',
-    bag: '++id',
-    holes: '++id',
-    club: '++id',
+  rounds: '++id, courseName, inProgress',
+  holes: '++id, roundNumber, holeNumber, par, strokes, score, fairway, green, putts', // Add roundNumber to the index
 });
 
 export { db };

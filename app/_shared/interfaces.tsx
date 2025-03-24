@@ -1,39 +1,40 @@
-export interface Scorecard {
-  id: number;
+export interface Round {
+  id?: number;
+  courseName: string;
+  inProgress: number;
+}
+
+export interface Hole {
+  id?: number;
+  roundNumber?: number;
+  holeNumber: number;
+  par: number;
+  strokes: number;
+  score: number;
+  fairway: number;
+  green: number;
+  putts: number;
 }
 
 export interface Bag {
   id: number;
 }
 
-export interface Hole {
-  id?: number;
-  holeNumber: number;
-  par: number;
-  strokes: number;
-  score: number;
-  fairway: boolean;
-  green: boolean;
-  putts: number;
-}
-
 export interface Club {
-  id?: number;
+  id: number;
   name: string;
   type: string;
   loft: number;
   distance: number;
 }
 
+export interface AddHoleProps {
+  roundNumber: number;
+}
+
 export interface ScorecardProps {
   scorecard: Hole[];
   setScorecard: React.Dispatch<React.SetStateAction<Hole[]>>;
-}
-
-export interface HoleInputsProps {
-  currentHole: Hole;
-  setCurrentHole: React.Dispatch<React.SetStateAction<Hole>>;
-  editHole: (hole: Hole) => void;
 }
 
 export interface ClubInputsProps {
