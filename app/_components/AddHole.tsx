@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { AddHoleProps, Hole } from "../_shared/interfaces";
 import { db } from "../_db/db";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -9,25 +9,55 @@ export default function AddHole({ roundNumber }: AddHoleProps) {
     db.holes.where("roundNumber").equals(roundNumber).toArray()
   );
 
+  const [currentHole, setCurrentHole] = useState<Hole | null>(null);
   const [error, setError] = useState("");
-  const [hole, setHole] = useState<Hole | null>(null);
 
   useEffect(() => {
     if (holes && holes.length > 0) {
       const sortedHoles = holes.sort((a, b) => b.holeNumber - a.holeNumber);
-      setHole(sortedHoles[0]);
+      const mostRecentHole = sortedHoles[0];
+      setCurrentHole({
+        ...mostRecentHole,
+        holeNumber: mostRecentHole.holeNumber + 1,
+        id: undefined
+      });
+    } else {
+      setCurrentHole({
+        roundNumber: roundNumber,
+        holeNumber: 1,
+        par: 0,
+        strokes: 0,
+        score: 0,
+        fairway: 0,
+        green: 0,
+        putts: 0,
+      });
     }
-  }, [holes]);
+  }, [holes, roundNumber]);
 
   const addHole = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     try {
-      if (hole) {
+      if (currentHole) {
+        // Calculate the score before adding the hole
+        const updatedHole = {
+          ...currentHole,
+          score: currentHole.strokes - currentHole.par,
+        };
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const id = await db.holes.add(hole);
-
+        const id = await db.holes.add(updatedHole);
+        setCurrentHole({
+          roundNumber: roundNumber,
+          holeNumber: currentHole.holeNumber + 1,
+          par: 0,
+          strokes: 0,
+          score: 0,
+          fairway: 0,
+          green: 0,
+          putts: 0,
+        });
       } else {
-        setError(`Failed to add hole.`)
+        setError(`Failed to add hole.`);
       }
     } catch (err) {
       setError(`Failed to add hole: ${err}`);
@@ -35,16 +65,35 @@ export default function AddHole({ roundNumber }: AddHoleProps) {
   };
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    evt.preventDefault()
-    const {name, value} = evt.target
-    console.log(name + ": " + value)
-  }
+    evt.preventDefault();
+    const { name, value } = evt.target;
+    setCurrentHole((prevHole) =>
+      prevHole
+        ? {
+            ...prevHole,
+            [name]: value,
+          }
+        : null
+    );
+  };
 
+  const handleSelectChange = (evt: ChangeEvent<HTMLSelectElement>) => {
+    evt.preventDefault();
+    const { name, value } = evt.target;
+    setCurrentHole((prevHole) =>
+      prevHole
+        ? {
+            ...prevHole,
+            [name]: value,
+          }
+        : null
+    );
+  };
 
   return (
     <div className="container-sm flex flex-col gap-4">
       <h2 className="text-2xl underline text-center">
-        Hole: {hole?.holeNumber}
+        Hole: {currentHole?.holeNumber}
       </h2>
       {error ? <p>{error}</p> : null}
       <form className="flex flex-col items-start" onSubmit={addHole}>
@@ -53,7 +102,7 @@ export default function AddHole({ roundNumber }: AddHoleProps) {
           <input
             type="number"
             name="par"
-            value={hole?.par || 0}
+            value={currentHole?.par || 0}
             onChange={handleChange}
             className="ml-2 border rounded p-1 w-20"
           />
@@ -63,37 +112,41 @@ export default function AddHole({ roundNumber }: AddHoleProps) {
           <input
             type="number"
             name="strokes"
-            value={hole?.strokes || 0}
+            value={currentHole?.strokes || 0}
             onChange={handleChange}
             className="ml-2 border rounded p-1 w-20"
           />
         </label>
         <label className="mb-2">
           Hit fairway?
-          <input
-            type="number"
+          <select
             name="fairway"
-            value={hole?.fairway || 0}
-            onChange={handleChange}
+            value={currentHole?.fairway || 0}
+            onChange={handleSelectChange}
             className="ml-2"
-          />
+          >
+            <option value={1}>Yes</option>
+            <option value={0}>No</option>
+          </select>
         </label>
         <label className="mb-2">
           Green in Regulation?
-          <input
-            type="number"
+          <select
             name="green"
-            value={hole?.green || 0}
-            onChange={handleChange}
+            value={currentHole?.green || 0}
+            onChange={handleSelectChange}
             className="ml-2"
-          />
+          >
+            <option value={1}>Yes</option>
+            <option value={0}>No</option>
+          </select>
         </label>
         <label className="mb-2">
           Putts:
           <input
             type="number"
             name="putts"
-            value={hole?.putts || 0}
+            value={currentHole?.putts || 0}
             onChange={handleChange}
             className="ml-2 border rounded p-1 w-20"
           />

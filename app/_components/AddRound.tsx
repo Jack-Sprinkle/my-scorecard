@@ -8,17 +8,8 @@ export default function AddRound() {
   const addRound = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     try {
-      const roundId = await db.rounds.add({ courseName, inProgress: 1 });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const firstHoleId = await db.holes.add({ 
-        roundNumber: roundId,
-        holeNumber: 1,
-        par: 0,
-        strokes: 0,
-        score: 0,
-        fairway: 0,
-        green: 0,
-        putts: 0,})
+      const roundId = await db.rounds.add({ courseName, inProgress: 1 });
     } catch (err) {
       setError(`Could not start round: ${err}`);
     }

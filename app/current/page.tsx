@@ -1,13 +1,7 @@
 "use client";
-
-//Interface imports
 import { Round } from "../_shared/interfaces";
-
-//IndexedDB imports
 import { db } from "../_db/db";
 import { useLiveQuery } from "dexie-react-hooks";
-
-//Component Imports
 import AddRound from "../_components/AddRound";
 import AddHole from "../_components/AddHole";
 import { useState, useEffect } from "react";
