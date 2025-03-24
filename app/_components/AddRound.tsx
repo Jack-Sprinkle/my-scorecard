@@ -20,6 +20,7 @@ export default function AddRound() {
       onSubmit={addRound}
       className="container-sm flex flex-col items-start gap-4"
     >
+      <h1 className="text-3xl">Start a new round</h1>
       {error ? <p>{error}</p> : null}
       <label className="mb-2">
         Course Name:

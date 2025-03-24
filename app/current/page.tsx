@@ -5,6 +5,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import AddRound from "../_components/AddRound";
 import AddHole from "../_components/AddHole";
 import { useState, useEffect } from "react";
+import Scorecard from "../_components/Scorecard";
 
 export default function CurrentRound() {
   const [currentRound, setCurrentRound] = useState <Round | null>(null)
@@ -30,6 +31,7 @@ export default function CurrentRound() {
       <h1 className="text-3xl">Current Round</h1>
       <p>{currentRound.courseName}</p>
       {currentRound.id !== undefined && <AddHole roundNumber={currentRound.id}/>}
+      {currentRound.id !== undefined && <Scorecard roundNumber={currentRound.id}/>}
     </div>
   );
 }

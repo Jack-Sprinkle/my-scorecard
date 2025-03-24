@@ -33,8 +33,7 @@ export interface AddHoleProps {
 }
 
 export interface ScorecardProps {
-  scorecard: Hole[];
-  setScorecard: React.Dispatch<React.SetStateAction<Hole[]>>;
+  roundNumber: number;
 }
 
 export interface ClubInputsProps {

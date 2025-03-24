@@ -19,7 +19,7 @@ export default function AddHole({ roundNumber }: AddHoleProps) {
       setCurrentHole({
         ...mostRecentHole,
         holeNumber: mostRecentHole.holeNumber + 1,
-        id: undefined
+        id: undefined,
       });
     } else {
       setCurrentHole({
@@ -89,6 +89,7 @@ export default function AddHole({ roundNumber }: AddHoleProps) {
         : null
     );
   };
+  if (!currentHole) return <p>Loading your current hole...</p>;
 
   return (
     <div className="container-sm flex flex-col gap-4">
