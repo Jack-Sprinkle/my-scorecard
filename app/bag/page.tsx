@@ -3,33 +3,46 @@ import { useState, useEffect } from "react";
 import { Club } from "../_shared/interfaces";
 import AddClub from "../_components/AddClub";
 import { XIcon } from "../_shared/icons";
+import { db } from "../_db/db";
+import { useLiveQuery } from "dexie-react-hooks";
 
 export default function Bag() {
-  const [bag, setBag] = useState<Club[]>(() => {
-    const savedBag = localStorage.getItem("bag");
-    return savedBag ? JSON.parse(savedBag) : [];
-  });
+  const fetchClubs: Club[] | undefined = useLiveQuery(() => db.clubs.toArray());
+
+  const [clubs, setClubs] = useState<Club[] | null>(null);
+  const [showAddClub, setShowAddClub] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("bag", JSON.stringify(bag));
-  }, [bag]);
+    if (fetchClubs && fetchClubs.length > 0) {
+      setClubs(fetchClubs);
+      setError("");
+    } else {
+      setClubs(null)
+      setError("Please add a club to your bag.");
+    }
+  }, [fetchClubs, clubs]);
 
-  const [showAddClub, setShowAddClub] = useState(false);
-
-  const saveClub = (club: Club) => {
-    setBag((prevBag) => [...prevBag, club]);
-    setShowAddClub(false);
+  const saveClub = async (club: Club) => {
+    try {
+      if (club) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const newClubId = await db.clubs.add(club);
+      }
+    } catch (err) {
+      setError(`${err}`);
+    }
   };
 
-  const deleteClub = (index: number) => {
-    const newBag = [...bag];
-    newBag.splice(index, 1);
-    setBag(newBag);
+  const deleteClub = async (id: number) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const deletedClub = await db.clubs.delete(id)
   };
 
   return (
     <div className="container-sm flex flex-col gap-4 md: items-center">
       <h1 className="text-3xl">My bag</h1>
+      {error ? <p className="text-red-700">{error}</p> : null}
       <table className="table-auto mx-auto">
         <thead>
           <tr>
@@ -41,15 +54,15 @@ export default function Bag() {
           </tr>
         </thead>
         <tbody className="text-center">
-          {bag.map((club, index) => (
-            <tr key={index}>
+          {clubs?.map((club) => (
+            <tr key={club.id}>
               <td>{club.name}</td>
               <td>{club.type}</td>
               <td>{club.loft}</td>
               <td>{club.distance}</td>
               <td className="text-center">
                 <button
-                  onClick={() => deleteClub(index)}
+                  onClick={() => club.id !== undefined && deleteClub(club.id)}
                   className="text-red-500 flex justify-center"
                 >
                   <XIcon />

@@ -10,10 +10,9 @@ export default function AddClub({ saveClub }: ClubInputsProps) {
         distance: 0,
     });
 
-    const handleChange = (
-        e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-    ) => {
-        const { name, value } = e.target;
+    const handleChange = (evt: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        evt.preventDefault()
+        const { name, value } = evt.target;
         setClub((prevClub) => ({
             ...prevClub,
             [name]:
@@ -23,8 +22,8 @@ export default function AddClub({ saveClub }: ClubInputsProps) {
         }));
     };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+        evt.preventDefault();
         saveClub(club);
         setClub({
             name: "",

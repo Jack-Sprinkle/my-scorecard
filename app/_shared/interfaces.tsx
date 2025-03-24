@@ -16,12 +16,8 @@ export interface Hole {
   putts: number;
 }
 
-export interface Bag {
-  id: number;
-}
-
 export interface Club {
-  id: number;
+  id?: number;
   name: string;
   type: string;
   loft: number;
