@@ -18,7 +18,7 @@ export default function Bag() {
       setClubs(fetchClubs);
       setError("");
     } else {
-      setClubs(null)
+      setClubs(null);
       setError("Please add a club to your bag.");
     }
   }, [fetchClubs, clubs]);
@@ -36,7 +36,7 @@ export default function Bag() {
 
   const deleteClub = async (id: number) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const deletedClub = await db.clubs.delete(id)
+    const deletedClub = await db.clubs.delete(id);
   };
 
   return (

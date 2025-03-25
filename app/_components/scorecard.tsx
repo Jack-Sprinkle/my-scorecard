@@ -10,7 +10,7 @@ export default function Scorecard({ roundNumber }: ScorecardProps) {
   );
 
   const [scorecard, setScorecard] = useState<Hole[] | null>(null);
-  const [totalScore, setTotalScore] = useState(0)
+  const [totalScore, setTotalScore] = useState(0);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function Scorecard({ roundNumber }: ScorecardProps) {
       const sortedHoles = holes.sort((a, b) => a.holeNumber - b.holeNumber);
       const totalScore = holes.reduce((total, hole) => total + hole.score, 0);
       setScorecard(sortedHoles);
-      setTotalScore(totalScore)
+      setTotalScore(totalScore);
       setError("");
     } else {
       setError("Error fetching your scorecard.");

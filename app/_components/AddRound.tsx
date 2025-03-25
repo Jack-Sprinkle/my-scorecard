@@ -13,7 +13,7 @@ export default function AddRound() {
     } catch (err) {
       setError(`Could not start round: ${err}`);
     }
-  }
+  };
 
   return (
     <form

@@ -8,9 +8,10 @@ const db = new Dexie("myScorecardDB") as Dexie & {
 };
 
 db.version(1).stores({
-  rounds: '++id, courseName, inProgress',
-  holes: '++id, roundNumber, holeNumber, par, strokes, score, fairway, green, putts',
-  clubs: '++id, name, type, loft, distance'
+  rounds: "++id, courseName, inProgress",
+  holes:
+    "++id, roundNumber, holeNumber, par, strokes, score, fairway, green, putts",
+  clubs: "++id, name, type, loft, distance",
 });
 
 export { db };

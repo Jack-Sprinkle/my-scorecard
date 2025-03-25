@@ -8,12 +8,9 @@ import { useState, useEffect } from "react";
 import Scorecard from "../_components/Scorecard";
 
 export default function CurrentRound() {
-  const [currentRound, setCurrentRound] = useState <Round | null>(null)
-  const rounds: Round[] | undefined = useLiveQuery(() => 
-    db.rounds
-      .where('inProgress')
-      .equals(1)
-      .toArray()
+  const [currentRound, setCurrentRound] = useState<Round | null>(null);
+  const rounds: Round[] | undefined = useLiveQuery(() =>
+    db.rounds.where("inProgress").equals(1).toArray()
   );
 
   useEffect(() => {
@@ -30,8 +27,12 @@ export default function CurrentRound() {
     <div className="container-sm flex flex-col gap-5 md: items-center">
       <h1 className="text-3xl">Current Round</h1>
       <p>{currentRound.courseName}</p>
-      {currentRound.id !== undefined && <AddHole roundNumber={currentRound.id}/>}
-      {currentRound.id !== undefined && <Scorecard roundNumber={currentRound.id}/>}
+      {currentRound.id !== undefined && (
+        <AddHole roundNumber={currentRound.id} />
+      )}
+      {currentRound.id !== undefined && (
+        <Scorecard roundNumber={currentRound.id} />
+      )}
     </div>
   );
 }
