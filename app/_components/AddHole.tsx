@@ -4,7 +4,7 @@ import { AddHoleProps, Hole } from "../_shared/interfaces";
 import { db } from "../_db/db";
 import { useLiveQuery } from "dexie-react-hooks";
 
-export default function AddHole({ roundNumber }: AddHoleProps) {
+export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
   const holes: Hole[] | undefined = useLiveQuery(() =>
     db.holes.where("roundNumber").equals(roundNumber).toArray()
   );
@@ -94,71 +94,87 @@ export default function AddHole({ roundNumber }: AddHoleProps) {
   return (
     <div className="container-sm flex flex-col gap-4">
       <h2 className="text-2xl underline text-center">
-        Hole: {currentHole?.holeNumber}
+        {currentHole.holeNumber < 19
+          ? `Hole: ${currentHole.holeNumber}`
+          : "Round Complete"}
       </h2>
       {error ? <p>{error}</p> : null}
       <form className="flex flex-col items-start" onSubmit={addHole}>
-        <label className="mb-2">
-          Par:
-          <input
-            type="number"
-            name="par"
-            value={currentHole?.par || 0}
-            onChange={handleChange}
-            className="ml-2 border rounded p-1 w-20"
-          />
-        </label>
-        <label className="mb-2">
-          Strokes:
-          <input
-            type="number"
-            name="strokes"
-            value={currentHole?.strokes || 0}
-            onChange={handleChange}
-            className="ml-2 border rounded p-1 w-20"
-          />
-        </label>
-        <label className="mb-2">
-          Hit fairway?
-          <select
-            name="fairway"
-            value={currentHole?.fairway || 0}
-            onChange={handleSelectChange}
-            className="ml-2"
-          >
-            <option value={1}>Yes</option>
-            <option value={0}>No</option>
-          </select>
-        </label>
-        <label className="mb-2">
-          Green in Regulation?
-          <select
-            name="green"
-            value={currentHole?.green || 0}
-            onChange={handleSelectChange}
-            className="ml-2"
-          >
-            <option value={1}>Yes</option>
-            <option value={0}>No</option>
-          </select>
-        </label>
-        <label className="mb-2">
-          Putts:
-          <input
-            type="number"
-            name="putts"
-            value={currentHole?.putts || 0}
-            onChange={handleChange}
-            className="ml-2 border rounded p-1 w-20"
-          />
-        </label>
-        <div className="flex justify-between w-full">
-          <button
-            type="submit"
-            className="rounded-lg bg-green-500 text-white px-2 py-1 mt-4"
-          >
-            Add Hole
-          </button>
+        {currentHole.holeNumber < 19 && (
+          <>
+            <label className="mb-2">
+              Par:
+              <input
+                type="number"
+                name="par"
+                value={currentHole?.par || 0}
+                onChange={handleChange}
+                className="ml-2 border rounded p-1 w-20"
+              />
+            </label>
+            <label className="mb-2">
+              Strokes:
+              <input
+                type="number"
+                name="strokes"
+                value={currentHole?.strokes || 0}
+                onChange={handleChange}
+                className="ml-2 border rounded p-1 w-20"
+              />
+            </label>
+            <label className="mb-2">
+              Hit fairway?
+              <select
+                name="fairway"
+                value={currentHole?.fairway || 0}
+                onChange={handleSelectChange}
+                className="ml-2"
+              >
+                <option value={1}>Yes</option>
+                <option value={0}>No</option>
+              </select>
+            </label>
+            <label className="mb-2">
+              Green in Regulation?
+              <select
+                name="green"
+                value={currentHole?.green || 0}
+                onChange={handleSelectChange}
+                className="ml-2"
+              >
+                <option value={1}>Yes</option>
+                <option value={0}>No</option>
+              </select>
+            </label>
+            <label className="mb-2">
+              Putts:
+              <input
+                type="number"
+                name="putts"
+                value={currentHole?.putts || 0}
+                onChange={handleChange}
+                className="ml-2 border rounded p-1 w-20"
+              />
+            </label>
+          </>
+        )}
+
+        <div className="flex w-full">
+          {currentHole.holeNumber < 19 ? (
+            <button
+              type="submit"
+              className="rounded-lg bg-blue-500 text-white px-2 py-1 mt-4"
+            >
+              Add Hole
+            </button>
+          ) : (
+            <button
+              onClick={saveRound}
+              className="rounded-lg bg-green-500 text-white px-4 py-2 mb-4 mx-auto"
+            >
+              Save Round
+            </button>
+          )}
         </div>
       </form>
     </div>

@@ -26,6 +26,7 @@ export interface Club {
 
 export interface AddHoleProps {
   roundNumber: number;
+  saveRound: () => void;
 }
 
 export interface ScorecardProps {

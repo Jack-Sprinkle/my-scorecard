@@ -19,6 +19,17 @@ export default function CurrentRound() {
     }
   }, [rounds]);
 
+  const saveRound = async () => {
+    if (currentRound && currentRound.id !== undefined) {
+      try {
+        await db.rounds.update(currentRound.id, { inProgress: 0 });
+        setCurrentRound(null);
+      } catch (err) {
+        console.error("Failed to save round:", err);
+      }
+    }
+  };
+
   if (!currentRound) {
     return <AddRound />;
   }
@@ -28,7 +39,7 @@ export default function CurrentRound() {
       <h1 className="text-3xl">Current Round</h1>
       <p>{currentRound.courseName}</p>
       {currentRound.id !== undefined && (
-        <AddHole roundNumber={currentRound.id} />
+        <AddHole roundNumber={currentRound.id} saveRound={saveRound} />
       )}
       {currentRound.id !== undefined && (
         <Scorecard roundNumber={currentRound.id} />
