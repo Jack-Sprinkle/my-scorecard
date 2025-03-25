@@ -28,6 +28,13 @@ export default function Header() {
           >
             <Link href="/bag">My Bag</Link>
           </li>
+          <li
+            className={
+              pathName === "/previous" ? "text-white underline" : "text-white"
+            }
+          >
+            <Link href="/previous">Previous Rounds</Link>
+          </li>
         </ul>
       </nav>
     </header>
