@@ -10,26 +10,30 @@ export default function Scorecard({ roundNumber }: ScorecardProps) {
   );
 
   const [scorecard, setScorecard] = useState<Hole[] | null>(null);
+  const [coursePar, setCoursePar] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
+  const [totalStrokes, setTotalStrokes] = useState(0);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (holes && holes.length > 0) {
       const sortedHoles = holes.sort((a, b) => a.holeNumber - b.holeNumber);
-      const totalScore = holes.reduce((total, hole) => total + hole.score, 0);
+      const score = holes.reduce((total, hole) => total + Number(hole.score), 0);
+      const par = holes.reduce((total, hole) => total + Number(hole.par), 0);
+      const strokes = holes.reduce((total, hole) => total + Number(hole.strokes), 0);
       setScorecard(sortedHoles);
-      setTotalScore(totalScore);
+      setCoursePar(par);
+      setTotalScore(score);
+      setTotalStrokes(strokes);
       setError("");
     } else {
-      setError("Error fetching your scorecard.");
+      setError("Add a hole to start your scorecard.");
     }
   }, [holes, roundNumber]);
 
-  if (!scorecard) return <p>Add a hole to start your scorecard.</p>;
-
   return (
     <div className="container-sm flex flex-col gap-4">
-      {error ? <p>{error}</p> : null}
+      {error ? <p className="text-red-700">{error}</p> : null}
       <table className="table-auto mx-auto">
         <thead>
           <tr>
@@ -64,8 +68,10 @@ export default function Scorecard({ roundNumber }: ScorecardProps) {
           ))}
         </tbody>
       </table>
-      <div>
-        <h2 className="pl-2">Score: {totalScore}</h2>
+      <div className="container-sm flex flex-col items-start">
+        <h2 className="pl-2">Course Par: {coursePar}</h2>
+        <h3 className="pl-2">Total Strokes: {totalStrokes}</h3>
+        <h4 className="pl-2">Score: {totalScore}</h4>
       </div>
     </div>
   );

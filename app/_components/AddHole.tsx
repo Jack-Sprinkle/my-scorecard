@@ -89,7 +89,8 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
         : null
     );
   };
-  if (!currentHole) return <p>Loading your current hole...</p>;
+  
+  if (!currentHole) return <p>Loading your current hole.</p>;
 
   return (
     <div className="container-sm flex flex-col gap-4">
@@ -98,7 +99,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
           ? `Hole: ${currentHole.holeNumber}`
           : "Round Complete"}
       </h2>
-      {error ? <p>{error}</p> : null}
+      {error ? <p className="text-red-700">{error}</p> : null}
       <form className="flex flex-col items-start" onSubmit={addHole}>
         {currentHole.holeNumber < 19 && (
           <>
