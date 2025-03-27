@@ -32,6 +32,23 @@ export const XIcon = () => (
   </svg>
 );
 
+export const PencilIcon = () => (
+  <svg
+    className="w-6 h-6 text-yellow-500"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M11 4L20 13M4 20l4-1 11-11-4-4L4 16v4z"
+    ></path>
+  </svg>
+);
+
 export const LeftArrowIcon = () => (
   <svg
     className="w-7 h-7 text-blue-500"

@@ -30,14 +30,38 @@ export default function CurrentRound() {
     }
   };
 
+  const deleteCurrentRound = async (id: number | undefined) => {
+    if (id !== undefined) {
+      try {
+        await db.holes.where("roundNumber").equals(id).delete();
+        await db.rounds.delete(id);
+        setCurrentRound(null);
+      } catch (err) {
+        console.error("Failed to delete round:", err);
+      }
+    }
+  };
+
   if (!currentRound) {
-    return <AddRound />;
+    return (
+      <div className="container-sm flex flex-col gap-5 md: items-center">
+        <AddRound />
+      </div>
+    );
   }
 
   return (
     <div className="container-sm flex flex-col gap-5 md: items-center">
-      <h1 className="text-3xl">Current Round</h1>
-      <p>{currentRound.courseName}</p>
+      <div className="container-sm flex flex-col gap-2 md: items-center">
+        <h1 className="text-3xl">Current Round</h1>
+        <h2 className="text-2xl">Course: {currentRound.courseName}</h2>
+        <button
+          onClick={() => deleteCurrentRound(currentRound.id)}
+          className="rounded-lg bg-red-500 text-white px-2 py-1 text-xs self-start"
+        >
+          Discard Round
+        </button>
+      </div>
       {currentRound.id !== undefined && (
         <AddHole roundNumber={currentRound.id} saveRound={saveRound} />
       )}
