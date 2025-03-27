@@ -171,7 +171,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
           ) : (
             <button
               onClick={saveRound}
-              className="rounded-lg bg-green-500 text-white px-4 py-2 mb-4 mx-auto"
+              className="rounded-lg bg-green-500 text-white px-2 py-1 mt-4"
             >
               Save Round
             </button>

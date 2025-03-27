@@ -17,10 +17,6 @@ export default function Home() {
         </p>
         <ol className="list-decimal pl-6">
           <li>
-            You must finish a round (all 18 holes) to be able to save, you
-            cannot save or delete mid round.
-          </li>
-          <li>
             You cannot go back and edit holes mid round or after a round has
             been saved.
           </li>
