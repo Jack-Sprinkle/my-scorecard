@@ -4,12 +4,13 @@ import { FormEvent, useState } from "react";
 export default function AddRound() {
   const [error, setError] = useState("");
   const [courseName, setCourseName] = useState("");
+  const [date, setDate] = useState("");
 
   const addRound = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     try {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const roundId = await db.rounds.add({ courseName, inProgress: 1 });
+      const roundId = await db.rounds.add({ courseName, date, inProgress: 1 });
     } catch (err) {
       setError(`Could not start round: ${err}`);
     }
@@ -29,6 +30,15 @@ export default function AddRound() {
           type="text"
           value={courseName}
           onChange={(evt) => setCourseName(evt.target.value)}
+        />
+      </label>
+      <label className="mb-2">
+        Date:
+        <input
+          className="ml-2 border rounded p-1 w-50"
+          type="date"
+          value={date}
+          onChange={(evt) => setDate(evt.target.value)}
         />
       </label>
       <button

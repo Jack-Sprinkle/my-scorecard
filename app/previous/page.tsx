@@ -27,7 +27,7 @@ export default function PreviousRounds() {
             {error ? <p className="text-red-700">{error}</p> : null}
             {rounds?.map((round) => (
                 <div key={round.id}>
-                    <h2 className="text-lg underline ml-4">{round.courseName}</h2>
+                    <h2 className="text-lg ml-4">{round.courseName}: {round.date}</h2>
                     <Scorecard roundNumber={round.id ?? 0}/>
                 </div>
             ))}

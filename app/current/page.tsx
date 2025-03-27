@@ -37,7 +37,7 @@ export default function CurrentRound() {
   return (
     <div className="container-sm flex flex-col gap-5 md: items-center">
       <h1 className="text-3xl">Current Round</h1>
-      <p>{currentRound.courseName}</p>
+      <h2 className="text-2xl">Course: {currentRound.courseName}</h2>
       {currentRound.id !== undefined && (
         <AddHole roundNumber={currentRound.id} saveRound={saveRound} />
       )}

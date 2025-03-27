@@ -94,11 +94,11 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
 
   return (
     <div className="container-sm flex flex-col gap-4">
-      <h2 className="text-2xl underline text-center">
+      <h3 className="text-xl underline text-center">
         {currentHole.holeNumber < 19
           ? `Hole: ${currentHole.holeNumber}`
           : "Round Complete"}
-      </h2>
+      </h3>
       {error ? <p className="text-red-700">{error}</p> : null}
       <form className="flex flex-col items-start" onSubmit={addHole}>
         {currentHole.holeNumber < 19 && (
