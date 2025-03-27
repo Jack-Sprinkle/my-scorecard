@@ -19,7 +19,6 @@ export interface Hole {
 export interface Club {
   id?: number;
   name: string;
-  type: string;
   loft: number;
   distance: number;
 }
@@ -33,6 +32,11 @@ export interface ScorecardProps {
   roundNumber: number;
 }
 
-export interface ClubInputsProps {
+export interface AddClubInputProps {
   saveClub: (club: Club) => void;
+}
+
+export interface EditClubInputProps {
+  editClub: (club: Club) => void;
+  clubId: number
 }

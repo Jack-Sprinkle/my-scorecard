@@ -25,7 +25,6 @@ export default function Home() {
             been saved.
           </li>
           <li>You cannot delete a round after it has been saved.</li>
-          <li>You cannot edit or delete clubs from your bag.</li>
           <li>I&apos;m hoping to add some offline support soon as well</li>
         </ol>
         <p className="text-sm mt-4 italic">
