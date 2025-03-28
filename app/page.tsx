@@ -25,7 +25,6 @@ export default function Home() {
           Features currently lacking (to be added soon):
         </p>
         <ol className="list-decimal pl-6">
-          <li>You cannot edit holes mid-round.</li>
           <li>
             No stat tracking on previous rounds like average FIR, GIR, Putts,
             etc.

@@ -55,15 +55,15 @@ export default function Scorecard({ roundNumber }: ScorecardProps) {
               <td>{hole.score}</td>
               <td className="text-center">
                 <div className="flex justify-center">
-                  {hole.fairway ? <CheckIcon /> : <XIcon />}
+                  {Number(hole.fairway) === 1 ? <CheckIcon /> : <XIcon />}
                 </div>
               </td>
               <td className="text-center">
                 <div className="flex justify-center">
-                  {hole.green ? <CheckIcon /> : <XIcon />}
+                  {Number(hole.green) === 1 ? <CheckIcon /> : <XIcon />}
                 </div>
               </td>
-              <td>{hole.putts}</td>
+              <td className={hole.putts >= 3 ? "text-red-700" : undefined}>{hole.putts}</td>
             </tr>
           ))}
         </tbody>
