@@ -78,7 +78,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
         // Calculate the score before adding the hole
         const updatedHole = {
           ...currentHole,
-          score: currentHole.strokes - currentHole.par,
+          score: (currentHole.strokes ?? 0) - (currentHole.par ?? 0),
         };
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const id = await db.holes.put(updatedHole);
