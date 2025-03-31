@@ -9,6 +9,7 @@
   --font-default: "Roboto", "sans-serif";
 
   --container-*: initial;
+  --container-xs: 0.25rem;
   --container-sm: 0.5rem;
   --container-md: 1.5rem;
   --container-lg: 2rem;
