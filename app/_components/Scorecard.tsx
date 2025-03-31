@@ -32,38 +32,38 @@ export default function Scorecard({ roundNumber }: ScorecardProps) {
   }, [holes, roundNumber]);
 
   return (
-    <div className="container-sm flex flex-col gap-4">
+    <div className="container-xs flex flex-col gap-4">
       {error ? <p className="text-red-700">{error}</p> : null}
       <table className="table-auto mx-auto">
         <thead>
           <tr>
-            <th className="px-2">Hole</th>
-            <th className="px-2">Par</th>
-            <th className="px-2">Strokes</th>
-            <th className="px-2">+/-</th>
-            <th className="px-2">Fairway</th>
-            <th className="px-2">GIR</th>
-            <th className="px-2">Putts</th>
+            <th className="px-1">Hole</th>
+            <th className="px-1">Par</th>
+            <th className="px-1">Strokes</th>
+            <th className="px-1">+/-</th>
+            <th className="px-1">Fairway</th>
+            <th className="px-1">GIR</th>
+            <th className="px-1">Putts</th>
           </tr>
         </thead>
         <tbody className="text-center">
           {scorecard?.map((hole, index) => (
             <tr key={index}>
               <td>{hole.holeNumber}</td>
-              <td>{hole.par}</td>
-              <td>{hole.strokes}</td>
-              <td>{hole.score}</td>
+              <td>{Number(hole.par)}</td>
+              <td>{Number(hole.strokes)}</td>
+              <td>{Number(hole.score)}</td>
               <td className="text-center">
                 <div className="flex justify-center">
-                  {hole.fairway ? <CheckIcon /> : <XIcon />}
+                  {Number(hole.fairway) ? <CheckIcon /> : <XIcon />}
                 </div>
               </td>
               <td className="text-center">
                 <div className="flex justify-center">
-                  {hole.green ? <CheckIcon /> : <XIcon />}
+                  {Number(hole.green) ? <CheckIcon /> : <XIcon />}
                 </div>
               </td>
-              <td>{hole.putts}</td>
+              <td>{Number(hole.putts)}</td>
             </tr>
           ))}
         </tbody>

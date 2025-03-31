@@ -25,12 +25,12 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
       setCurrentHole({
         roundNumber: roundNumber,
         holeNumber: 1,
-        par: 0,
-        strokes: 0,
-        score: 0,
-        fairway: 0,
-        green: 0,
-        putts: 0,
+        par: null,
+        strokes: null,
+        score: null,
+        fairway: null,
+        green: null,
+        putts: null,
       });
     }
   }, [holes, roundNumber]);
@@ -42,7 +42,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
         // Calculate the score before adding the hole
         const updatedHole = {
           ...currentHole,
-          score: currentHole.strokes - currentHole.par,
+          score: (currentHole.strokes ?? 0) - (currentHole.par ?? 0),
         };
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const id = await db.holes.add(updatedHole);
@@ -108,7 +108,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
               <input
                 type="number"
                 name="par"
-                value={currentHole?.par || 0}
+                value={currentHole?.par ?? ""}
                 onChange={handleChange}
                 className="ml-2 border rounded p-1 w-20"
               />
@@ -118,7 +118,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
               <input
                 type="number"
                 name="strokes"
-                value={currentHole?.strokes || 0}
+                value={currentHole?.strokes ?? ""}
                 onChange={handleChange}
                 className="ml-2 border rounded p-1 w-20"
               />
@@ -127,7 +127,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
               Hit fairway?
               <select
                 name="fairway"
-                value={currentHole?.fairway || 0}
+                value={currentHole?.fairway ?? ""}
                 onChange={handleSelectChange}
                 className="ml-2"
               >
@@ -139,7 +139,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
               Green in Regulation?
               <select
                 name="green"
-                value={currentHole?.green || 0}
+                value={currentHole?.green ?? ""}
                 onChange={handleSelectChange}
                 className="ml-2"
               >
@@ -152,7 +152,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
               <input
                 type="number"
                 name="putts"
-                value={currentHole?.putts || 0}
+                value={currentHole?.putts ?? 0}
                 onChange={handleChange}
                 className="ml-2 border rounded p-1 w-20"
               />
