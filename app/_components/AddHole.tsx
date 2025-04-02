@@ -57,12 +57,12 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
         setCurrentHole({
           roundNumber: roundNumber,
           holeNumber: currentHole.holeNumber + 1,
-          par: 0,
-          strokes: 0,
-          score: 0,
-          fairway: 0,
-          green: 0,
-          putts: 0,
+          par: null,
+          strokes: null,
+          score: null,
+          fairway: null,
+          green: null,
+          putts: null,
         });
       } else {
         setError(`Failed to add hole.`);
@@ -85,12 +85,12 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
         setCurrentHole({
           roundNumber: roundNumber,
           holeNumber: currentHole.holeNumber + 1,
-          par: 0,
-          strokes: 0,
-          score: 0,
-          fairway: 0,
-          green: 0,
-          putts: 0,
+          par: null,
+          strokes: null,
+          score: null,
+          fairway: null,
+          green: null,
+          putts: null,
         });
       } else {
         setError(`Failed to add hole.`);
@@ -215,7 +215,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
               Hit fairway?
               <select
                 name="fairway"
-                value={currentHole?.fairway ?? ""}
+                value={currentHole?.fairway ?? 0}
                 onChange={handleSelectChange}
                 className="ml-2"
               >
@@ -227,7 +227,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
               Green in Regulation?
               <select
                 name="green"
-                value={currentHole?.green ?? ""}
+                value={currentHole?.green ?? 0}
                 onChange={handleSelectChange}
                 className="ml-2"
               >
@@ -252,12 +252,22 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
           {currentHole.holeNumber < 19 ? (
             <>
               {holes && currentHole.holeNumber > holes.length ? (
-                <button
-                  type="submit"
-                  className="rounded-lg bg-blue-500 text-white px-2 py-1 mt-4"
-                >
-                  Add Hole
-                </button>
+                <>
+                  <button
+                    type="submit"
+                    className="rounded-lg bg-blue-500 text-white px-2 py-1 mt-4"
+                  >
+                    Add Hole
+                  </button>
+                  {currentHole.holeNumber === 10 ? (
+                    <button
+                      onClick={saveRound}
+                      className="rounded-lg bg-green-500 text-white px-2 py-1 mt-4 ml-4"
+                    >
+                      Save Round
+                    </button>
+                  ) : null}
+                </>
               ) : (
                 <button
                   type="button"
