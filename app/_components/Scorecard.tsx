@@ -70,7 +70,7 @@ export default function Scorecard({ roundNumber }: ScorecardProps) {
                   <span className="border-2 border-red-500 rounded-none px-2 inline-block">
                     {Number(hole.score)}
                   </span>
-                ) : Number(hole.score) === 2 ? (
+                ) : Number(hole.score) >= 2 ? (
                   // Double bogey: double square (nested span)
                   <span className="inline-block p-0.5 border-2 border-red-500 rounded-none">
                     <span className="border-2 border-red-500 rounded-none px-2 inline-block">
