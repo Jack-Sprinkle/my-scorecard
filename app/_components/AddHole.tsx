@@ -172,13 +172,13 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
         : null
     );
   };
-  console.log(currentHole);
+
   if (!currentHole) return <p>Loading your current hole.</p>;
 
   return (
     <div className="container-sm flex flex-col gap-4">
       <h3 className="text-xl underline text-center">
-        {currentHole.holeNumber !== 18
+        {currentHole.holeNumber <= 18 && currentHole.id === undefined
           ? `Hole: ${currentHole.holeNumber}`
           : "Round Complete"}
       </h3>
@@ -200,7 +200,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
       </div>
       {error ? <p className="text-red-700">{error}</p> : null}
       <form className="flex flex-col items-start" onSubmit={addHole}>
-        {currentHole.holeNumber !== 18 && (
+        {currentHole.holeNumber <= 18 && currentHole.id === undefined && (
           <>
             <label className="mb-2">
               Par:
@@ -260,7 +260,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
         )}
 
         <div className="flex w-full">
-          {currentHole.holeNumber !== 18 ? (
+          {currentHole.holeNumber <= 18 && currentHole.id === undefined ? (
             <>
               {holes && currentHole.holeNumber > holes.length ? (
                 <>
