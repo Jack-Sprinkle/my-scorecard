@@ -17,18 +17,27 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
     if (holes && holes.length > 0) {
       const sortedHoles = holes.sort((a, b) => b.holeNumber - a.holeNumber);
       const mostRecentHole = sortedHoles[0];
-      setCurrentHole({
-        ...mostRecentHole,
-        roundNumber: roundNumber,
-        holeNumber: mostRecentHole.holeNumber + 1,
-        par: 0,
-        strokes: 0,
-        score: 0,
-        fairway: 0,
-        green: 0,
-        putts: 0,
-        id: undefined,
-      });
+      if (mostRecentHole.holeNumber < 18) {
+        setCurrentHole({
+          ...mostRecentHole,
+          roundNumber: roundNumber,
+          holeNumber: mostRecentHole.holeNumber + 1,
+          par: 0,
+          strokes: 0,
+          score: 0,
+          fairway: 0,
+          green: 0,
+          putts: 0,
+          id: undefined,
+        });
+      } else {
+        // After 18 holes, don't set up a new hole
+        setCurrentHole({
+          ...mostRecentHole,
+          roundNumber: roundNumber,
+          // Keep holeNumber at 18, don't increment
+        });
+      }
     } else {
       setCurrentHole({
         roundNumber: roundNumber,
@@ -54,16 +63,18 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
         };
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const id = await db.holes.add(updatedHole);
-        setCurrentHole({
-          roundNumber: roundNumber,
-          holeNumber: currentHole.holeNumber + 1,
-          par: null,
-          strokes: null,
-          score: null,
-          fairway: null,
-          green: null,
-          putts: null,
-        });
+        if (currentHole.holeNumber < 18) {
+          setCurrentHole({
+            roundNumber: roundNumber,
+            holeNumber: currentHole.holeNumber + 1,
+            par: null,
+            strokes: null,
+            score: null,
+            fairway: null,
+            green: null,
+            putts: null,
+          });
+        }
       } else {
         setError(`Failed to add hole.`);
       }
@@ -161,13 +172,13 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
         : null
     );
   };
-
+  console.log(currentHole);
   if (!currentHole) return <p>Loading your current hole.</p>;
 
   return (
     <div className="container-sm flex flex-col gap-4">
       <h3 className="text-xl underline text-center">
-        {currentHole.holeNumber < 19
+        {currentHole.holeNumber !== 18
           ? `Hole: ${currentHole.holeNumber}`
           : "Round Complete"}
       </h3>
@@ -189,7 +200,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
       </div>
       {error ? <p className="text-red-700">{error}</p> : null}
       <form className="flex flex-col items-start" onSubmit={addHole}>
-        {currentHole.holeNumber < 19 && (
+        {currentHole.holeNumber !== 18 && (
           <>
             <label className="mb-2">
               Par:
@@ -249,7 +260,7 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
         )}
 
         <div className="flex w-full">
-          {currentHole.holeNumber < 19 ? (
+          {currentHole.holeNumber !== 18 ? (
             <>
               {holes && currentHole.holeNumber > holes.length ? (
                 <>
@@ -259,14 +270,6 @@ export default function AddHole({ roundNumber, saveRound }: AddHoleProps) {
                   >
                     Add Hole
                   </button>
-                  {currentHole.holeNumber === 10 ? (
-                    <button
-                      onClick={saveRound}
-                      className="rounded-lg bg-green-500 text-white px-2 py-1 mt-4 ml-4"
-                    >
-                      Save Round
-                    </button>
-                  ) : null}
                 </>
               ) : (
                 <button
