@@ -30,6 +30,9 @@ export default function Home() {
             etc.
           </li>
           <li>
+            No Handicap Index calculation yet, but I do want to add this in to the stats page.
+          </li>
+          <li>
             Offline support is not yet available, but I’m hoping to add it soon.
           </li>
         </ol>

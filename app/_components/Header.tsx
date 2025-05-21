@@ -35,6 +35,13 @@ export default function Header() {
           >
             <Link href="/previous">Previous Rounds</Link>
           </li>
+          <li
+            className={
+              pathName === "/stats" ? "text-white underline" : "text-white"
+            }
+          >
+            <Link href="/stats">Stats</Link>
+          </li>
         </ul>
       </nav>
     </header>
