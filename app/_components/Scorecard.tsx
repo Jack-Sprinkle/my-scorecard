@@ -60,7 +60,14 @@ export default function Scorecard({ roundNumber }: ScorecardProps) {
               <td className="py-2">{Number(hole.strokes)}</td>
               <td className="py-2">
                 {" "}
-                {Number(hole.score) === -1 ? (
+                {Number(hole.score) <= -2 ? (
+                  //Eagle: double circle
+                  <span className="inline-block p-0.5 border-2 border-blue-500 rounded-full">
+                    <span className="border-2 border-blue-500 rounded-full px-2 inline-block">
+                      {Number(hole.score)}
+                    </span>
+                  </span>
+                ) : Number(hole.score) === -1 ? (
                   // Birdie: circle
                   <span className="border-2 border-blue-500 rounded-full px-2 inline-block">
                     {Number(hole.score)}
@@ -71,7 +78,7 @@ export default function Scorecard({ roundNumber }: ScorecardProps) {
                     {Number(hole.score)}
                   </span>
                 ) : Number(hole.score) >= 2 ? (
-                  // Double bogey: double square (nested span)
+                  // Double bogey: double square
                   <span className="inline-block p-0.5 border-2 border-red-500 rounded-none">
                     <span className="border-2 border-red-500 rounded-none px-2 inline-block">
                       {Number(hole.score)}
